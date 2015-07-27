@@ -1,0 +1,12 @@
+<?php
+$conf_host = 'smtp.gmail.com';
+$conf_port = 587;
+$conf_smtpsecure = 'tls';
+$conf_auth = true;
+$conf_uname = "email";
+$conf_passw = "password";
+$conf_from_mail = 'frommail';
+$conf_from_name = 'fromname';
+$conf_reply_mail = 'replymail';
+$conf_reply_name = 'replyname';
+?>
