@@ -8,7 +8,7 @@ $dst = array(
 
 $mes = array(
 	"subject" => 'Test Message',
-	"text" => 'Body',
+	"text" => "Message body",
 	"attachments" => array()
 );
 

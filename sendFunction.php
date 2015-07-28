@@ -11,6 +11,8 @@ destination:
 message:
 	"subject": Subject of e-mail message
 	"text": Plain text e-mail body
+	"html": HTML Code of your e-mail
+	"html_root": root of html page
 	"attachments": array of file named
 */
 function sendMail($destination, $message)
@@ -33,7 +35,9 @@ function sendMail($destination, $message)
 	$mail->Subject = $message["subject"];
 
 	if ($message["html"]) {
-		$mail->msgHTML = $message["html"];
+		if ($message["html_root"]) $html_root = $message["html_root"];
+		else $html_root = "";
+		$mail->msgHTML($message["html"], $html_root);
 	}
 	else if($message["text"]) {
 		$mail->Body = $message["text"];
