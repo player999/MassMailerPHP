@@ -1,17 +1,27 @@
 <?php
 require 'sendFunction.php';
+include 'config.php';
 
-$dst = array(
-	"name" => 'Taras Zakharchenko',
-	"mail" => 'player999@ukr.net'
-);
-
+if(!file_exists($conf_mail_body)) return;
+$handle = fopen($conf_mail_body, "r");
+if(!$handle) return;
+fseek($handle, 0, SEEK_END);
+$size = ftell($handle);
+if ($size < 1) {
+	fclose($handle);
+	unlink($conf_mail_body);
+	return;
+}
+fseek($handle, 0, SEEK_SET);
+$data = fread($handle, $size);
+fclose($handle);
+$m = json_decode($data);
 $mes = array(
-	"subject" => 'Test Message',
-	"text" => "Message body",
+	"subject" => $m->{"subject"},
+	"html" => $m->{"body"},
+	"html_root" => ".",
 	"attachments" => array()
 );
+sendMultipleMail($mes, 1);
 
-
-sendMail($dst, $mes);
 ?>

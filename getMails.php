@@ -47,4 +47,19 @@ function popMail($file) {
 	return $returnrecord;
 }
 
+
+/* Now it is mock */
+function fetchMails() {
+	$mails = array(
+		array(
+			"name" => 'Taras Zakharchenko',
+			"mail" => 'player999@ukr.net'
+		),
+		array(
+			"name" => 'Taras Ivanov',
+			"mail" => 'taras.zakharchenko@gmail.com'
+		)
+	);
+	return $mails;
+}
 ?>

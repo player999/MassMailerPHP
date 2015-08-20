@@ -2,6 +2,7 @@
 date_default_timezone_set('Etc/UTC');
 
 require 'PHPMailerAutoload.php';
+require 'getMails.php';
 
 /*
 destination:
@@ -15,6 +16,12 @@ message:
 	"html_root": root of html page
 	"attachments": array of file named
 */
+
+function emptyMail($mail) {
+	if ($mail["name"] == "" && $mail["mail"] == "") return true;
+	else return false;
+}
+
 function sendMail($destination, $message)
 {
 	include 'config.php';
@@ -54,4 +61,17 @@ function sendMail($destination, $message)
 		return true;
 	}
 }
+
+function sendMultipleMail($message, $interval)
+{
+	include 'config.php';
+	while(1) {
+		$mail = popMail($conf_mail_list);
+		if(emptyMail($mail)) break;
+		sendMail($mail, $message);;
+		sleep($interval);
+	}
+	
+}
+
 ?>

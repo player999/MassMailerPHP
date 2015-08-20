@@ -9,4 +9,5 @@ $conf_from_mail = 'frommail';
 $conf_from_name = 'fromname';
 $conf_reply_mail = 'replymail';
 $conf_reply_name = 'replyname';
+$conf_mail_list = 'mails.txt';
 ?>
