@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="http://tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+<script>tinymce.init({selector:'textarea'});</script>
+<script type="text/javascript">
+	function send_message() {
+		var message = tinyMCE.activeEditor.getContent();
+		var subject = document.getElementById("subject").value;
+		var email = {"subject":subject, "body":message};
+		var data = JSON.stringify(email, null, 2);
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", "create_task.php", true);
+		xmlhttp.setRequestHeader("Content-type","application/json");
+		xmlhttp.send(data);
+		alert("Task sent");
+	}
+</script>
+</head>
+
+<body>
+<center><h1>Разослать сообщения</h1></center>
+<input type="text" id="subject" value="Тема сообщения">
+<textarea id="message">Текст сообщения</textarea> 
+<input onclick="send_message()" type="submit" value="Отправить!">
+</body>
+
+</html>
