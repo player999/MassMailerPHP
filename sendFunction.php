@@ -40,6 +40,7 @@ function sendMail($destination, $message)
 	$mail->addReplyTo($conf_reply_mail, $conf_reply_name);
 	$mail->addAddress($destination["mail"], $destination["name"]);
 	$mail->Subject = $message["subject"];
+	$mail->CharSet = 'UTF-8';
 
 	if ($message["html"]) {
 		if ($message["html_root"]) $html_root = $message["html_root"];
