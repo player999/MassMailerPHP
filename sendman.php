@@ -22,6 +22,6 @@ $mes = array(
 	"html_root" => ".",
 	"attachments" => array()
 );
-sendMultipleMail($mes, 1);
+sendMultipleMail($mes, $conf_interval);
 
 ?>

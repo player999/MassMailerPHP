@@ -10,4 +10,7 @@ $conf_from_name = 'fromname';
 $conf_reply_mail = 'replymail';
 $conf_reply_name = 'replyname';
 $conf_mail_list = 'mails.txt';
+$conf_mail_body = 'email.txt';
+$conf_interval = 1;
+
 ?>
