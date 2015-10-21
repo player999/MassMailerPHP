@@ -12,5 +12,9 @@ $conf_reply_name = 'replyname';
 $conf_mail_list = 'mails.txt';
 $conf_mail_body = 'email.txt';
 $conf_interval = 1;
+$conf_dbhost = 'hostname';
+$conf_dbname = 'database name';
+$conf_dbuser = 'user';
+$conf_dbpass = 'password';
 
 ?>

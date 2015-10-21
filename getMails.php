@@ -49,6 +49,7 @@ function popMail($file) {
 
 
 /* Now it is mock */
+/*
 function fetchMails() {
 	$mails = array(
 		array(
@@ -62,4 +63,37 @@ function fetchMails() {
 	);
 	return $mails;
 }
+*/
+
+function fetchMails() {
+	include 'config.php';
+	$conn = mysql_connect($conf_dbhost, $conf_dbuser, $conf_dbpass);
+	if(!$conn)
+	{
+		return "Connection failed";
+	}
+	mysql_select_db($conf_dbname);
+	$sql = "SELECT distinct `customers_email_address`, `customers_name` 
+	FROM `orders` WHERE customers_email_address != '' and 
+	`orders_id` > 2350 order by `customers_email_address`";
+	$retval = mysql_query($sql, $conn); 
+	if(!$retval)
+	{
+		return "Failed to execute ".$sql;
+	}
+
+	$resulting_array = array();
+	while($row = mysql_fetch_array($retval, MYSQL_ASSOC))
+	{
+		if (strstr($row["customers_email_address"], "@")) {
+			array_push($resulting_array, array(
+				"name" => iconv('windows-1251', 'utf-8', $row["customers_name"]),
+				"mail" => iconv('windows-1251', 'utf-8', $row["customers_email_address"])
+			));
+		}
+	}
+	mysql_close($conn);
+	return $resulting_array;
+}
+
 ?>
