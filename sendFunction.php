@@ -29,6 +29,7 @@ function sendMail($destination, $message)
 	$mail->isSMTP();
 	$mail->SMTPDebug = 0;
 	$mail->Debugoutput = 'html';
+	$mail->CharSet = 'Windows-1251';
 
 	$mail->Host = $conf_host;
 	$mail->Port = $conf_port;
@@ -36,19 +37,23 @@ function sendMail($destination, $message)
 	$mail->SMTPAuth = $conf_auth;
 	$mail->Username = $conf_uname;
 	$mail->Password = $conf_passw;
-	$mail->setFrom($conf_from_mail, $conf_from_name);
-	$mail->addReplyTo($conf_reply_mail, $conf_reply_name);
+	$mail->setFrom($conf_from_mail, 
+		iconv("UTF-8", "Windows-1251", $conf_from_name));
+	$mail->addReplyTo($conf_reply_mail, 
+		iconv("UTF-8", "Windows-1251", $conf_reply_name));
 	$mail->addAddress($destination["mail"], $destination["name"]);
-	$mail->Subject = $message["subject"];
-	$mail->CharSet = 'UTF-8';
+	$mail->Subject = iconv("UTF-8", "Windows-1251", $message["subject"]);
 
 	if ($message["html"]) {
-		if ($message["html_root"]) $html_root = $message["html_root"];
+		if ($message["html_root"]) 
+			$html_root = iconv("UTF-8", "Windows-1251", $message["html_root"]);
 		else $html_root = "";
-		$mail->msgHTML($message["html"], $html_root);
+
+		$mail->msgHTML(iconv("UTF-8", "Windows-1251", $message["html"]), 
+			$html_root);
 	}
 	else if($message["text"]) {
-		$mail->Body = $message["text"];
+		$mail->Body = iconv("UTF-8", "Windows-1251", $message["text"]);
 	}
 
 	foreach ($message["attachments"] as $attachment) {

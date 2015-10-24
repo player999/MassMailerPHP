@@ -16,7 +16,7 @@ fclose($f);
 /*Save list of emails*/
 $f = fopen($conf_mail_list, "w");
 if (property_exists($data_json, 'addressates')){
-	fwrite($f, $data_json->{'addressates'});
+	fwrite($f, utf8_encode ($data_json->{'addressates'}));
 }
 else {
 	$dests = fetchMails();
