@@ -6,9 +6,17 @@
 <script>tinymce.init({selector:'textarea'});</script>
 <script type="text/javascript">
 	function send_message() {
-		var message = tinyMCE.activeEditor.getContent();
+		var message = tinyMCE.get("message").getContent();
 		var subject = document.getElementById("subject").value;
-		var email = {"subject":subject, "body":message};
+		var addressates = tinyMCE.get("addressates").getContent({format : 'text'});
+		var email = {};
+		if (addressates == "") {
+			email = {"subject":subject, "body":message};
+		}
+		else {
+			email = {"subject":subject, "body":message, 
+				"addressates":addressates};
+		}
 		var data = JSON.stringify(email, null, 2);
 		xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("POST", "create_task.php", true);
@@ -23,6 +31,8 @@
 <center><h1>Разослать сообщения</h1></center>
 <input type="text" id="subject" value="Тема сообщения">
 <textarea id="message">Текст сообщения</textarea> 
+<h3>Список получателей. Оставьте его пустым, если хотите что бы он создался автоматически</h3>
+<textarea id="addressates"></textarea>
 <input onclick="send_message()" type="submit" value="Отправить!">
 </body>
 
