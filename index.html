@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Создание тестовой рассылки</title>
+	<script type="text/javascript">
+	function get_status() {
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("GET", "status.php", false);
+		xmlhttp.send(null);
+		response_object=JSON.parse(xmlhttp.responseText)
+		var line;
+		if (response_object["status"] == "ready") {
+			line = "Текущих заданий нет";
+		}
+		else if (response_object["status"] == "sending") {
+			line = "Осталось отправить " + response_object["left"] + " писем.";
+		}
+		document.getElementById("status").innerHTML = line;
+		setTimeout(get_status, 10000);
+	}
+	function init_send() {
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("GET", "sendman.php", true);
+		xmlhttp.send(null);
+		alert("Процесс отправки запущен! Кликайте эту ссылку только когда письма перестанут отправлятся!");
+	}
+	</script>
+</head>
+<body onload="get_status()">
+<a href="message_composer.html"><h3>Создать новую рассылку</h3></a>
+<a href="#" onclick="init_send()"><h3>Запустить отправку</h3></a>
+<h3>Статус отправки:</h3>
+<div id="status"></div>
+</body>
+</html>
